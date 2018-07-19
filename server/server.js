@@ -36,4 +36,5 @@ io.on('connection', (socket) =>{
 // integration of server with express app to use the socket io
 server.listen(port, () => {
   console.log(`Server is up on port ${port}`);
+}
 });
