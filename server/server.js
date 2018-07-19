@@ -18,7 +18,7 @@ io.on('connection', (socket) =>{
   socket.emit('newEmail', {
     from: 'sujal@example.com',
     text: 'Hey, whats up?',
-    createdAt: 124
+    createdAt: 125
   });
 
   socket.on('createEmail', (newEmail) => {
