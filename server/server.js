@@ -16,7 +16,7 @@ io.on('connection', (socket) =>{
   console.log("New User connected");
 
   socket.emit('newEmail', {
-    from: 'sujal@example.com',
+    from: 'ineedtobegood@gmail.com',
     text: 'Hey, whats up?',
     createdAt: 125
   });
