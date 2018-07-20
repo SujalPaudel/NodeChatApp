@@ -15,21 +15,34 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) =>{
   console.log("New User connected");
 
-  // io.emit emits the content to the global user.
+  // for all the users
 
-  socket.on('createEmail', (newEmail) => {
-    console.log('createEmail', newEmail);
-    io.emit('newEmail', {
-      from : newEmail.from,
-      text : newEmail.text,
-      createdAt : new Date().getTime()
-    });
+  socket.emit('newMessage', {
+    from : 'Admin',
+    text : 'Welcome to the chat group',
+    createdAt : new Date().getTime()
   });
+  
+  socket.broadcast.emit('newMessage', {
+    from : 'Admin',
+    text : 'New user added',
+    createdAt : new Date().getTime()
+  });
+
+  socket.on('createMessage', (Message) => {
+    console.log('createMessage', Message);
+    io.emit('newMessage', {
+      from : Message.from,
+      text : Message.text,
+      createdAt : new Date().getTime()
+    })
+  })
 
   socket.on('disconnect', () => {
     console.log("User disconnected");
   });
 });
+
 
 
 

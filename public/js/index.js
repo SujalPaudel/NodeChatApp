@@ -9,6 +9,6 @@ socket.on('disconnect', function(){
 });
 //event listener
 
-socket.on('newEmail', function(email){
-  console.log('New Email', email);
+socket.on('newMessage', function(Message){
+  console.log('New Message', Message);
 });
