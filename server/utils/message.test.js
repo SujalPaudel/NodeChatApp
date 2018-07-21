@@ -20,9 +20,9 @@ describe('generateLocationMessage', () => {
     var latitude = 1;
     var longitude = 1;
     var url = 'https://www.google.com/maps?q=1,1';
-    var LocationMessage = generateLocationMessage(from, latitude, longitude);
+    var locationMessage = generateLocationMessage(from, latitude, longitude);
     
-    expect(typeof LocationMessage.createdAt).toBe('number');
-    expect(LocationMessage).toMatchObject({from,url});
+    expect(typeof locationMessage.createdAt).toBe('number');
+    expect(locationMessage).toMatchObject({from,url});
   });
 })
