@@ -17,8 +17,6 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) =>{
   console.log("New User connected");
 
-  // for all the users
-
 
   socket.on('join', (params, callback) => {
     if(!isRealString(params.name) || !isRealString(params.room)){
