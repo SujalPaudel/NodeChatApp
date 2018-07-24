@@ -2,7 +2,8 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
-const {generateMessage, generateLocationMessage} = require('./utils/message')  
+const {generateMessage, generateLocationMessage} = require('./utils/message');
+const {isRealString} = require('./utils/validations');
 
 
 const publicPath = path.join(__dirname, '../public');
@@ -18,9 +19,21 @@ io.on('connection', (socket) =>{
 
   // for all the users
 
-  socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat group'));
+
+  socket.on('join', (params, callback) => {
+    if(!isRealString(params.name) || !isRealString(params.room)){
+      callback('Name and Room Name are required');
+    }
+
+    socket.join(params.room);
+
+    socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat group'));
+    
+    socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `${params.name}, has joined`));
+   
+    callback();
   
-  socket.broadcast.emit('newMessage', generateMessage('Admin', 'New User Added'));
+  });
 
   socket.on('createMessage', (Message, callback) => {
     console.log('createMessage', Message);
